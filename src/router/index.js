@@ -13,8 +13,18 @@ const router = createRouter({
     {
       path: "/destination/:id/:slug",
       component : () => import('../views/DestinationView.vue'),
-      name : "destination.show"
-    }
+      name : "destination.show",
+      props : true,
+      children : [
+        {
+          path: ":experienceSlug",
+          component : () => import('../views/ExperienceShowView.vue'),
+          name : "experience.show",
+          props : true
+      }
+      ]
+    },
+
   ],
 })
 

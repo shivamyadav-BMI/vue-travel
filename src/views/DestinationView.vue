@@ -6,12 +6,25 @@
       <p>{{ destination?.description }}</p>
     </div>
   </div>
+  <section class="experiences">
+    <h1>Top destinations in {{ destination.name }}</h1>
+    <div class="cards">
+      <RouterLink :to="{ name: 'experience.show', params: { experienceSlug: experience.slug } }"
+        v-for="experience in destination.experiences" :key="experience.slug">
+        <ExperienceCard :experience="experience" />
+      </RouterLink>
+    </div>
+  </section>
+  <section>
+    <RouterView></RouterView>
+  </section>
 </template>
 
 <script setup>
 import { onMounted, ref, watch, watchEffect } from 'vue';
-import { useRoute } from 'vue-router';
+import { RouterLink, RouterView, useRoute } from 'vue-router';
 import sourceData from "../../data.json";
+import ExperienceCard from '../components/ExperienceCard.vue';
 
 const route = useRoute();
 const destination = ref({});
