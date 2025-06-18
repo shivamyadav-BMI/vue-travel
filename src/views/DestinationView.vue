@@ -1,23 +1,26 @@
 <template>
-  <div class="destination">
-    <h1>{{ destination.name }}</h1>
-    <div class="destination-details">
-      <img :src="`/images/${destination.image}`" :alt="destination.name">
-      <p>{{ destination?.description }}</p>
+  <div>
+    <div class="destination">
+      <h1>{{ destination.name }}</h1>
+      <GoBackButton />
+      <div class="destination-details">
+        <img :src="`/images/${destination.image}`" :alt="destination.name">
+        <p>{{ destination?.description }}</p>
+      </div>
     </div>
+    <section class="experiences">
+      <h1>Top destinations in {{ destination.name }}</h1>
+      <div class="cards">
+        <RouterLink :to="{ name: 'experience.show', params: { experienceSlug: experience.slug } }"
+          v-for="experience in destination.experiences" :key="experience.slug">
+          <ExperienceCard :experience="experience" />
+        </RouterLink>
+      </div>
+    </section>
+    <section>
+      <RouterView></RouterView>
+    </section>
   </div>
-  <section class="experiences">
-    <h1>Top destinations in {{ destination.name }}</h1>
-    <div class="cards">
-      <RouterLink :to="{ name: 'experience.show', params: { experienceSlug: experience.slug } }"
-        v-for="experience in destination.experiences" :key="experience.slug">
-        <ExperienceCard :experience="experience" />
-      </RouterLink>
-    </div>
-  </section>
-  <section>
-    <RouterView></RouterView>
-  </section>
 </template>
 
 <script setup>
@@ -25,6 +28,7 @@ import { onMounted, ref, watch, watchEffect } from 'vue';
 import { RouterLink, RouterView, useRoute } from 'vue-router';
 import sourceData from "../../data.json";
 import ExperienceCard from '../components/ExperienceCard.vue';
+import GoBackButton from '../components/GoBackButton.vue';
 
 const route = useRoute();
 const destination = ref({});

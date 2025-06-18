@@ -157,6 +157,10 @@ a {
 
 .go-back {
   display: inline-block;
+  cursor: pointer;
+  border: 1px solid gray;
+  padding: 2px 12px;
+  border-radius: 5%;
   margin-bottom: 15px;
 }
 /* Form */
